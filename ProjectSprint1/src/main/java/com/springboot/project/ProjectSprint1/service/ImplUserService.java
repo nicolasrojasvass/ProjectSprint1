@@ -1,6 +1,7 @@
 package com.springboot.project.ProjectSprint1.service;
 
 import com.springboot.project.ProjectSprint1.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
+@Service
 public class ImplUserService implements IUserService {
     private final List<User> listUsers = new ArrayList<>();
 
