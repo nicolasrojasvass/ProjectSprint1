@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     IUserService iUserService;
 
-    @PutMapping("/createUser")
+    @PostMapping("/createUser")
     public User createUser(@RequestBody UserDTO userDTO) {
         return iUserService.createUser(new User(userDTO));
     }
@@ -37,7 +37,7 @@ public class UserController {
         return iUserService.deleteUser(idUser);
     }
 
-    @PostMapping("/updateUser/{idUser}")
+    @PutMapping("/updateUser/{idUser}")
     public Optional<User> updateUser(@PathVariable String idUser, @RequestBody UserDTO userDTO) {
         return iUserService.updateUser(idUser, new User(userDTO));
     }
