@@ -32,7 +32,7 @@ public class ImplBookService implements IBookService {
     @Override
     public boolean deleteBook(String idBook) {
         listBooks.removeIf(x -> x.getIdBook().equals(idBook));
-        return false;
+        return !listBooks.stream().anyMatch(x -> x.getIdBook().equals(idBook));
     }
 
     @Override
