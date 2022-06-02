@@ -2,49 +2,57 @@ package com.springboot.project.ProjectSprint1.model;
 
 import com.springboot.project.ProjectSprint1.controller.dto.UserDTO;
 
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name = "sprint2")
 public class User {
-    private String idUser;
-    private String firstName;
-    private String lastName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_user")
+    private Long idUser;
+    private String first_name;
+    private String last_name;
     private String email;
     private String username;
 
-    public User(String firstName, String lastName, String email, String username) {
-        this.idUser = UUID.randomUUID().toString();
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(String first_name, String last_name, String email, String username) {
+        this.first_name = first_name;
+        this.last_name = last_name;
         this.email = email;
         this.username = username;
+    }
+
+    public User() {
     }
 
     public User(UserDTO userDTO) {
         this(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(), userDTO.getUsername());
     }
 
-    public String getIdUser() {
+    public Long getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(String idUser) {
+    public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name.trim();
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name.trim();
     }
 
     public String getEmail() {
@@ -52,7 +60,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.trim();
     }
 
     public String getUsername() {
@@ -60,15 +68,15 @@ public class User {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.trim();
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "idUser='" + idUser + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 '}';
