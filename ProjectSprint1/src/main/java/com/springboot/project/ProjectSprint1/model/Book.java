@@ -2,10 +2,14 @@ package com.springboot.project.ProjectSprint1.model;
 
 import com.springboot.project.ProjectSprint1.controller.dto.BookDTO;
 
+import javax.persistence.*;
 import java.util.UUID;
-
+@Entity
+@Table(name = "users")
 public class Book {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_book")
     private String idBook;
     private String nombre;
     private String autor;
