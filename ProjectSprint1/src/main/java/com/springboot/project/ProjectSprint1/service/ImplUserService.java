@@ -2,6 +2,7 @@ package com.springboot.project.ProjectSprint1.service;
 
 import com.springboot.project.ProjectSprint1.model.User;
 import com.springboot.project.ProjectSprint1.repository.IUserRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class ImplUserService implements IUserService {
             iUserRepository.deleteById(id);
             Optional<User> user = iUserRepository.findById(id);
             return user.isPresent() ? false : true;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | EmptyResultDataAccessException e) {
              e.getMessage();
              return false;
         }
