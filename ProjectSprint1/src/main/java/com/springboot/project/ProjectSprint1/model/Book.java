@@ -5,30 +5,31 @@ import com.springboot.project.ProjectSprint1.controller.dto.BookDTO;
 import javax.persistence.*;
 import java.util.UUID;
 @Entity
-@Table(name = "users")
+@Table(name = "books")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_book")
-    private String idBook;
+    private Long idBook;
     private String nombre;
     private String autor;
 
     public Book(String nombre, String autor) {
-        this.idBook = UUID.randomUUID().toString();
         this.nombre = nombre;
         this.autor = autor;
     }
+
+    public Book(){}
 
     public Book(BookDTO bookDTO){
         this(bookDTO.getNombre(),bookDTO.getAutor());
     }
 
-    public String getIdBook() {
+    public Long getIdBook() {
         return idBook;
     }
 
-    public void setIdBook(String idBook) {
+    public void setIdBook(Long idBook) {
         this.idBook = idBook;
     }
 

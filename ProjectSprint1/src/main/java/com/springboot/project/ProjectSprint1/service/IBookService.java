@@ -9,11 +9,11 @@ public interface IBookService {
 
     Book createBook(Book book);
 
-    Optional<Book> findByIdBook(String idBook);
+    Optional<Book> findByIdBook(Long idBook);
 
     Optional<List<Book>> getAllBooks();
 
-    boolean deleteBook(String idBook);
+    boolean deleteBook(Long idBook);
 
     Optional<Book> updateBook(String idBook, Book book);
 
