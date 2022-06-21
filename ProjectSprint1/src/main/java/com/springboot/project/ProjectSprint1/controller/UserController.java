@@ -31,8 +31,15 @@ public class UserController {
 
     @PostMapping("user")
     public UserJwtDTO login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
-        String token = JWTToken.getJWTToken(username);
-        return new UserJwtDTO(username, token);
+        Optional<List<User>> users =iUserService.getAllUsers();
+        if (users.isPresent()){
+            Optional<User> filterUser = users.get().stream().filter(user -> username.equals(user.getUsername())).findAny();
+            if (filterUser.isPresent()){
+                String token = JWTToken.getJWTToken(username);
+                return new UserJwtDTO(username, token);
+            }
+        }
+        return null;
     }
 
     @PostMapping("/createUser")
