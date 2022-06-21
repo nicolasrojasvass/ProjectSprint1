@@ -1,19 +1,38 @@
 package com.springboot.project.ProjectSprint1.security;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 @Component
 public class JWTGenerate {
 
-    private static final String KEY = "";
-/*
-    public String generateToken(User userDetails){
-        return Jwts.builder().setSubject(userDetails.getEmail()).setIssuesx
+    private static final String KEY = "spr1ngB0ot";
+
+    public String generateToken(UserDetails userDetails){
+        return Jwts.builder().setSubject(userDetails.getUsername()).setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .signWith(SignatureAlgorithm.HS256, KEY).compact();
     }
 
-    public Claims getClaims(String ){
-        return Jwts.parser().setSignStringKey(KEY).parseClaimsJws(Token).getEx
+    public boolean validateToken(String token, UserDetails userDetails){
+        return userDetails.getUsername().equals(extractUserName(token)) && !isTokenExpired(token);
     }
-*/
-    
+
+    public String extractUserName(String token){
+        return getClaims(token).getSubject();
+    }
+
+    public boolean isTokenExpired(String token){
+        return getClaims(token).getExpiration().before(new Date());
+    }
+
+    private Claims getClaims(String token){
+        return Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
+    }
+
 }

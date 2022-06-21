@@ -18,11 +18,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.6.3'
+	//implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.6.3'
 	runtimeOnly 'org.postgresql:postgresql'
 	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.6.8'
-
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
