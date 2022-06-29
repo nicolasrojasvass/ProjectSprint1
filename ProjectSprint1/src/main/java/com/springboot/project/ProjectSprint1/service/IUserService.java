@@ -16,4 +16,8 @@ public interface IUserService {
     boolean deleteUser(String idUser);
 
     Optional<User> updateUser(String idUser, User user);
+
+    Optional<User> findByUsername(String username);
+
+    Optional<User> findByUsernameAndPassword(String username, String password);
 }

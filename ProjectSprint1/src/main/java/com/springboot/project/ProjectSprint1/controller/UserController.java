@@ -1,45 +1,33 @@
 package com.springboot.project.ProjectSprint1.controller;
 
-
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.springboot.project.ProjectSprint1.controller.dto.UserDTO;
 import com.springboot.project.ProjectSprint1.model.User;
 import com.springboot.project.ProjectSprint1.security.JWTToken;
 import com.springboot.project.ProjectSprint1.security.dto.UserJwtDTO;
 import com.springboot.project.ProjectSprint1.service.IUserService;
-import org.bson.json.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.*;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/v3/users")
+@RequestMapping("/v4/users")
 public class UserController {
     @Autowired
     IUserService iUserService;
 
-    @PostMapping("user")
-    public UserJwtDTO login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
-        Optional<List<User>> users =iUserService.getAllUsers();
-        if (users.isPresent()){
-            Optional<User> filterUser = users.get().stream().filter(user -> username.equals(user.getUsername())).findAny();
-            if (filterUser.isPresent()){
-                String token = JWTToken.getJWTToken(username);
-                return new UserJwtDTO(username, token);
-            }
+    @PostMapping("/login")
+    public ResponseEntity<Object> login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+        Optional<User> user = iUserService.findByUsernameAndPassword(username, pwd);
+        if (user.isPresent()){
+            String token = JWTToken.getJWTToken(username);
+            return new ResponseEntity<>(new UserJwtDTO(username, token), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Usuario no encontrado", HttpStatus.OK);
         }
-        return null;
     }
 
     @PostMapping("/createUser")
@@ -48,8 +36,9 @@ public class UserController {
     }
 
     @GetMapping("/findById/{idUser}")
-    public ResponseEntity<Optional<User>> findById(@PathVariable String idUser) {
-        return new ResponseEntity<>(iUserService.findByIdUser(idUser), HttpStatus.OK);
+    public ResponseEntity<Object> findById(@PathVariable String idUser) {
+        Optional<User> user = iUserService.findByIdUser(idUser);
+        return new ResponseEntity<>(user.isPresent() ? user.get() : "No se ha encontrado el usuario con el id: " + idUser, HttpStatus.OK);
     }
 
     @GetMapping("/getAllUsers")
@@ -58,8 +47,9 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteUser/{idUser}")
-    public ResponseEntity<Boolean> deleteUser(@PathVariable String idUser) {
-        return new ResponseEntity<>(iUserService.deleteUser(idUser), HttpStatus.OK);
+    public ResponseEntity<String> deleteUser(@PathVariable String idUser) {
+        boolean isDeleted = iUserService.deleteUser(idUser);
+        return new ResponseEntity<>(isDeleted ? "Se ha eliminado el usuario correctamente" : "No se ha podido eliminar el usuario con el id: " + idUser, HttpStatus.OK);
     }
 
     @PutMapping("/updateUser/{idUser}")

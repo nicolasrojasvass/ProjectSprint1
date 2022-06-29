@@ -26,7 +26,7 @@ public class ProjectSprint1Application {
 			http.csrf().disable()
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
-					.antMatchers(HttpMethod.POST, "/v3/users/user").permitAll()
+					.antMatchers(HttpMethod.POST, "/v4/users/login").permitAll()
 					.anyRequest().authenticated();
 		}
 	}
