@@ -7,7 +7,7 @@ import java.util.Base64;
 import java.util.UUID;
 
 @Entity
-@Table(name = "sprint2")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
