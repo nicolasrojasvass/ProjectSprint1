@@ -13,6 +13,18 @@ repositories {
 }
 
 dependencies {
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+	//implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.6.3'
+	runtimeOnly 'org.postgresql:postgresql'
+	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.6.8'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
 	implementation group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.3.0'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.6.8'
 	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
@@ -20,6 +32,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.postgresql:postgresql'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
 }
